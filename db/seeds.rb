@@ -7,36 +7,36 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 recipe = Recipe.create(
-    name: "Roast Chicken",
-    description: "Classic roast chicken that fills the belly and the soul.",
-    cooking_time: 75,
-    prep_time: 1440,
-    yield: 4
+    name: "Italian Meaatballs",
+    description: "Classic Italian meatballs",
+    cooking_time: 20,
+    prep_time: 15,
+    yield: 8
 )
 
 Ingredient.create(
     recipe_id: recipe.id,
-    name: "3.5 to 4-lb. whole chicken"
+    name: "1-lb. 80/20 ground beef"
 )
 
 Ingredient.create(
     recipe_id: recipe.id,
-    name: "1 lemon"
+    name: "1/2-lb. ground veal"
 )
 
 Ingredient.create(
     recipe_id: recipe.id,
-    name: "5 sprigs fresh thyme"
+    name: "1/2-lb. ground pork"
 )
 
 Ingredient.create(
     recipe_id: recipe.id,
-    name: "1 teaspoon salt"
+    name: "1 tsp garlic powder"
 )
 
 Ingredient.create(
     recipe_id: recipe.id,
-    name: "1/2 teaspoon pepper"
+    name: "1/2 teaspoon salt"
 )
 
 Instruction.create(
@@ -46,15 +46,15 @@ Instruction.create(
 
 Instruction.create(
     recipe_id: recipe.id,
-    body: "Stuff chicken with lemon and thyme"
+    body: "Combine all ingredients and mix well."
 )
 
 Instruction.create(
     recipe_id: recipe.id,
-    body: "Roast at 450 degrees for 20 minutes."
+    body: "Roll into racquet ball sized meatballs."
 )
 
 Instruction.create(
     recipe_id: recipe.id,
-    body: "Roast at 375 degrees for about 1 hour."
+    body: "Bake at 350 degrees for about 20 minutes."
 )
