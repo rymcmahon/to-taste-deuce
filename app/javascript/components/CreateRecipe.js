@@ -8,12 +8,20 @@ function CreateRecipe() {
     cookingTime: "",
     prepTime: "",
     yield: "",
+    ingredients: [],
+    instructions: [],
   });
   const handleRecipeChange = (e) =>
     setRecipe({
       ...recipe,
       [e.target.name]: e.target.value,
     });
+  const handleIngredientChange = (e) => {
+    const updatedIngredients = [...ingredients];
+    updatedIngredients[e.target.dataset.index][e.target.className] =
+      e.target.value;
+    setIngredients(updatedIngredients);
+  };
   const emptyIngredient = { name: "" };
   const [ingredients, setIngredients] = useState([{ ...emptyIngredient }]);
 
@@ -76,6 +84,8 @@ function CreateRecipe() {
               data-index={index}
               id={ingredientId}
               className="name"
+              value={ingredients[index].name}
+              onChange={handleIngredientChange}
             />
           </div>
         );
