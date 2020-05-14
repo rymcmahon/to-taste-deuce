@@ -2,71 +2,87 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 function CreateRecipe() {
-  const [inputs, setInputs] = useState({});
+  const [recipe, setRecipe] = useState({
+    name: "",
+    description: "",
+    cookingTime: "",
+    prepTime: "",
+    yield: "",
+  });
+  const handleRecipeChange = (e) =>
+    setRecipe({
+      ...recipe,
+      [e.target.name]: e.target.value,
+    });
+  const emptyIngredient = { name: "" };
+  const [ingredients, setIngredients] = useState([{ ...emptyIngredient }]);
 
-  function handleSubmit() {}
-  function handleChange() {
-    setInputs({ ...inputs, [event.target.name]: event.target.value });
-  }
-  console.log(inputs);
+  const addIngredient = () => {
+    setIngredients([...ingredients, { ...emptyIngredient }]);
+  };
+  // const [instructions, setInstructions] = useState([{ body: "" }]);
+  console.log("recipe: ", recipe);
   return (
-    <div>
-      <h1>Create Recipe</h1>
-      <br />
-      <form onSubmit={handleSubmit}>
-        <label>
-          Recipe Name:
-          <input
-            type="text"
-            name="name"
-            value={inputs.name}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Description:
-          <input
-            type="text"
-            name="description"
-            value={inputs.description}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Cooking Time:
-          <input
-            type="text"
-            name="cooking_time"
-            value={inputs.cooking_time}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Prep Time:
-          <input
-            type="text"
-            name="prep_time"
-            value={inputs.prep_time}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Yield:
-          <input
-            type="text"
-            name="yield"
-            value={inputs.yield}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+    <form>
+      <label htmlFor="name">Name</label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        value={recipe.name}
+        onChange={handleRecipeChange}
+      />
+      <label htmlFor="description">Description</label>
+      <input
+        type="text"
+        name="description"
+        id="description"
+        value={recipe.description}
+        onChange={handleRecipeChange}
+      />
+      <label htmlFor="cookingTime">Cooking Time</label>
+      <input
+        type="text"
+        name="cookingTime"
+        id="cookingTime"
+        value={recipe.cookingTime}
+        onChange={handleRecipeChange}
+      />
+      <label htmlFor="prepTime">Prep Time</label>
+      <input
+        type="text"
+        name="prepTime"
+        id="prepTime"
+        value={recipe.prepTime}
+        onChange={handleRecipeChange}
+      />
+      <label htmlFor="yield">Yield</label>
+      <input
+        type="text"
+        name="yield"
+        id="yield"
+        value={recipe.yield}
+        onChange={handleRecipeChange}
+      />
+      <input type="button" value="Add Ingredient" onClick={addIngredient} />
+      {ingredients.map((value, index) => {
+        const ingredientId = `name-${index}`;
+        return (
+          <div key={`ingredient-${index}`}>
+            <label htmlFor={ingredientId}>{`Ingredient #${index + 1}`}</label>
+            <input
+              type="text"
+              name={ingredientId}
+              data-index={index}
+              id={ingredientId}
+              className="name"
+            />
+          </div>
+        );
+      })}
+      <input type="button" value="Add Instruction" />
+      <input type="submit" value="Submit" />
+    </form>
   );
 }
 
