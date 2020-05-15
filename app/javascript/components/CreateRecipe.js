@@ -11,24 +11,40 @@ function CreateRecipe() {
     yield: "",
   });
 
-  const handleRecipeChange = (e) =>
+  function handleRecipeChange(e) {
     setRecipe({
       ...recipe,
       [e.target.name]: e.target.value,
     });
+  }
 
-  const handleIngredientChange = (e) => {
+  function handleIngredientChange(e) {
     const updatedIngredients = [...ingredients];
     updatedIngredients[e.target.dataset.index][e.target.className] =
       e.target.value;
     setIngredients(updatedIngredients);
-  };
+  }
+
   const emptyIngredient = { name: "" };
   const [ingredients, setIngredients] = useState([{ ...emptyIngredient }]);
 
-  const addIngredient = () => {
+  function addIngredient() {
     setIngredients([...ingredients, { ...emptyIngredient }]);
-  };
+  }
+
+  function handleInstructionChange(e) {
+    const updatedInstructions = [...instructions];
+    updatedInstructions[e.target.dataset.index][e.target.className] =
+      e.target.value;
+    setInstructions(updatedInstructions);
+  }
+
+  const emptyInstruction = { body: "" };
+  const [instructions, setInstructions] = useState([{ ...emptyInstruction }]);
+
+  function addInstruction() {
+    setInstructions([...instructions, { ...emptyInstruction }]);
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -36,6 +52,7 @@ function CreateRecipe() {
       .post("http://localhost:3000/api/v1/recipes.json", {
         recipe,
         ingredients,
+        instructions,
       })
       .then(function (response) {
         console.log(response);
@@ -106,7 +123,24 @@ function CreateRecipe() {
           </div>
         );
       })}
-      <input type="button" value="Add Instruction" />
+      <input type="button" value="Add Instruction" onClick={addInstruction} />
+      {instructions.map((value, index) => {
+        const instructionId = `body-${index}`;
+        return (
+          <div key={`instruction-${index}`}>
+            <label htmlFor={instructionId}>{`instruction #${index + 1}`}</label>
+            <input
+              type="text"
+              name={instructionId}
+              data-index={index}
+              id={instructionId}
+              className="body"
+              value={instructions[index].body}
+              onChange={handleInstructionChange}
+            />
+          </div>
+        );
+      })}
       <input type="submit" value="Submit" />
     </form>
   );
