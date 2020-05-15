@@ -9,14 +9,14 @@ function CreateRecipe() {
     cookingTime: "",
     prepTime: "",
     yield: "",
-    // ingredients: [],
-    // instructions: [],
   });
+
   const handleRecipeChange = (e) =>
     setRecipe({
       ...recipe,
       [e.target.name]: e.target.value,
     });
+
   const handleIngredientChange = (e) => {
     const updatedIngredients = [...ingredients];
     updatedIngredients[e.target.dataset.index][e.target.className] =
@@ -44,7 +44,7 @@ function CreateRecipe() {
         console.log(error);
       });
   }
-  // const [instructions, setInstructions] = useState([{ body: "" }]);
+
   console.log("ingredients: ", ingredients);
   return (
     <form onSubmit={handleSubmit}>
