@@ -8,4 +8,10 @@ class Api::V1::RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     render json: @recipe, include: [:ingredients, :instructions]
   end
+
+  def create
+    puts '********************************'
+    puts params["recipe"]
+    puts '********************************'
+  end
 end

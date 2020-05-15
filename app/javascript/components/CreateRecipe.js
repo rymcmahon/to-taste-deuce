@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+import PropTypes, { func } from "prop-types";
+import axios from "axios";
 
 function CreateRecipe() {
   const [recipe, setRecipe] = useState({
@@ -8,8 +9,8 @@ function CreateRecipe() {
     cookingTime: "",
     prepTime: "",
     yield: "",
-    ingredients: [],
-    instructions: [],
+    // ingredients: [],
+    // instructions: [],
   });
   const handleRecipeChange = (e) =>
     setRecipe({
@@ -28,10 +29,25 @@ function CreateRecipe() {
   const addIngredient = () => {
     setIngredients([...ingredients, { ...emptyIngredient }]);
   };
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    axios
+      .post("http://localhost:3000/api/v1/recipes.json", {
+        recipe,
+        ingredients,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   // const [instructions, setInstructions] = useState([{ body: "" }]);
-  console.log("recipe: ", recipe);
+  console.log("ingredients: ", ingredients);
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label htmlFor="name">Name</label>
       <input
         type="text"
