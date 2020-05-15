@@ -8,4 +8,17 @@ class Api::V1::RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     render json: @recipe, include: [:ingredients, :instructions]
   end
+
+  def create
+    @recipe = Recipe.create(
+      name: params["recipe"]["name"],
+      description: params["recipe"]["description"],
+      cooking_time: params["recipe"]["cookingTime"],
+      prep_time: params["recipe"]["prepTime"],
+      yield: params["recipe"]["yield"]
+    )
+
+    @ingredients = params["ingredients"]
+    @ingredients.map{ |ingredient| @recipe.ingredients.create(name: ingredient["name"]) }
+  end
 end
