@@ -19,9 +19,6 @@ class Api::V1::RecipesController < ApplicationController
     )
 
     @ingredients = params["ingredients"]
-    # @ingredients.each do |ingredient|
-    #   @recipe.ingredients.create(name: ingredient["name"])
-    # end
     @ingredients.map{ |ingredient| @recipe.ingredients.create(name: ingredient["name"]) }
   end
 end
