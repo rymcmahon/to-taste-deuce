@@ -20,5 +20,8 @@ class Api::V1::RecipesController < ApplicationController
 
     @ingredients = params["ingredients"]
     @ingredients.map{ |ingredient| @recipe.ingredients.create(name: ingredient["name"]) }
+
+    @instructions = params["instructions"]
+    @instructions.map{ |instruction| @recipe.instructions.create(body: instruction["body"]) }
   end
 end
