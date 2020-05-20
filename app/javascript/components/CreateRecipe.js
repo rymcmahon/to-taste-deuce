@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes, { func } from "prop-types";
 import axios from "axios";
 
 function CreateRecipe() {
