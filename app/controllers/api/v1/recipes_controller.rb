@@ -10,6 +10,7 @@ class Api::V1::RecipesController < ApplicationController
   end
 
   def create
+    puts params
     @recipe = Recipe.create(
       name: params["recipe"]["name"],
       description: params["recipe"]["description"],
