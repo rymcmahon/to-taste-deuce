@@ -15,12 +15,11 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import { Link } from "@material-ui/core";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import ListIcon from "@material-ui/icons/List";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import RestaurantMenuIcon from "@material-ui/icons/RestaurantMenu";
 
 const drawerWidth = 240;
 
@@ -79,6 +78,15 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  logo: {
+    marginRight: 5,
+  },
+  navLink: {
+    color: "#3f51b5",
+    "&:hover": {
+      textDecoration: "none",
+    },
+  },
 }));
 
 export default function PersistentDrawerLeft() {
@@ -115,8 +123,9 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
+          <RestaurantMenuIcon className={classes.logo} />
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            ToTaste
           </Typography>
         </Toolbar>
       </AppBar>
@@ -140,19 +149,19 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
         <List>
-          <Link href="/recipes">
+          <Link href="/recipes" className={classes.navLink}>
             <ListItem button>
               <ListItemIcon>{<ListIcon />}</ListItemIcon>
               <ListItemText primary="All Recipes" />
             </ListItem>
           </Link>
-          <Link href="/recipes/new">
+          <Link href="/recipes/new" className={classes.navLink}>
             <ListItem button>
               <ListItemIcon>{<AddCircleOutlineIcon />}</ListItemIcon>
               <ListItemText primary="Create" />
             </ListItem>
           </Link>
-          <Link href="#">
+          <Link href="#" className={classes.navLink}>
             <ListItem button>
               <ListItemIcon>{<VpnKeyIcon />}</ListItemIcon>
               <ListItemText primary="Log in" />
