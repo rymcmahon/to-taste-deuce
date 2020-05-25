@@ -1,5 +1,23 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap",
+    flexGrow: 1,
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: "25ch",
+  },
+}));
 
 function CreateRecipe() {
   const [recipe, setRecipe] = useState({
@@ -62,85 +80,144 @@ function CreateRecipe() {
   }
 
   console.log("ingredients: ", ingredients);
+  const classes = useStyles();
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Name</label>
-      <input
-        type="text"
-        name="name"
-        id="name"
-        value={recipe.name}
-        onChange={handleRecipeChange}
-      />
-      <label htmlFor="description">Description</label>
-      <input
-        type="text"
-        name="description"
-        id="description"
-        value={recipe.description}
-        onChange={handleRecipeChange}
-      />
-      <label htmlFor="cookingTime">Cooking Time</label>
-      <input
-        type="text"
-        name="cookingTime"
-        id="cookingTime"
-        value={recipe.cookingTime}
-        onChange={handleRecipeChange}
-      />
-      <label htmlFor="prepTime">Prep Time</label>
-      <input
-        type="text"
-        name="prepTime"
-        id="prepTime"
-        value={recipe.prepTime}
-        onChange={handleRecipeChange}
-      />
-      <label htmlFor="yield">Yield</label>
-      <input
-        type="text"
-        name="yield"
-        id="yield"
-        value={recipe.yield}
-        onChange={handleRecipeChange}
-      />
-      <input type="button" value="Add Ingredient" onClick={addIngredient} />
-      {ingredients.map((value, index) => {
-        const ingredientId = `name-${index}`;
-        return (
-          <div key={`ingredient-${index}`}>
-            <label htmlFor={ingredientId}>{`Ingredient #${index + 1}`}</label>
-            <input
+      <div className={classes.root}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <TextField
               type="text"
-              name={ingredientId}
-              data-index={index}
-              id={ingredientId}
-              className="name"
-              value={ingredients[index].name}
-              onChange={handleIngredientChange}
+              name="name"
+              id="name"
+              value={recipe.name}
+              onChange={handleRecipeChange}
+              label="Name"
+              style={{ marginBottom: 8 }}
+              variant="outlined"
+              fullWidth
             />
-          </div>
-        );
-      })}
-      <input type="button" value="Add Instruction" onClick={addInstruction} />
-      {instructions.map((value, index) => {
-        const instructionId = `body-${index}`;
-        return (
-          <div key={`instruction-${index}`}>
-            <label htmlFor={instructionId}>{`instruction #${index + 1}`}</label>
-            <input
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
               type="text"
-              name={instructionId}
-              data-index={index}
-              id={instructionId}
-              className="body"
-              value={instructions[index].body}
-              onChange={handleInstructionChange}
+              name="description"
+              id="description"
+              value={recipe.description}
+              onChange={handleRecipeChange}
+              label="Description"
+              style={{ marginBottom: 8 }}
+              multiline
+              rows={4}
+              variant="outlined"
+              fullWidth
             />
-          </div>
-        );
-      })}
-      <input type="submit" value="Submit" />
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+              type="text"
+              name="cookingTime"
+              id="cookingTime"
+              value={recipe.cookingTime}
+              onChange={handleRecipeChange}
+              label="Cooking Time"
+              variant="outlined"
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+              type="text"
+              name="prepTime"
+              id="prepTime"
+              value={recipe.prepTime}
+              onChange={handleRecipeChange}
+              label="Prep Time"
+              variant="outlined"
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+              type="text"
+              name="yield"
+              id="yield"
+              value={recipe.yield}
+              onChange={handleRecipeChange}
+              label="Yield"
+              variant="outlined"
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={addIngredient}
+              startIcon={<AddCircleOutlineIcon />}
+              style={{ marginBottom: 8 }}
+              fullWidth
+            >
+              Add Ingredient
+            </Button>
+            {ingredients.map((value, index) => {
+              const ingredientId = `name-${index}`;
+              return (
+                <div key={`ingredient-${index}`}>
+                  <TextField
+                    type="text"
+                    name={ingredientId}
+                    data-index={index}
+                    id={ingredientId}
+                    className="name"
+                    value={ingredients[index].name}
+                    onChange={handleIngredientChange}
+                    variant="outlined"
+                    htmlFor={ingredientId}
+                    label={`Ingredient #${index + 1}`}
+                    style={{ marginBottom: 8 }}
+                    fullWidth
+                  />
+                </div>
+              );
+            })}
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={addInstruction}
+              startIcon={<AddCircleOutlineIcon />}
+              style={{ marginBottom: 8 }}
+              fullWidth
+            >
+              Add Instruction
+            </Button>
+            {instructions.map((value, index) => {
+              const instructionId = `body-${index}`;
+              return (
+                <div key={`instruction-${index}`}>
+                  <TextField
+                    type="text"
+                    name={instructionId}
+                    data-index={index}
+                    id={instructionId}
+                    className="body"
+                    value={instructions[index].body}
+                    onChange={handleInstructionChange}
+                    variant="outlined"
+                    label={`Instruction #${index + 1}`}
+                    htmlFor={instructionId}
+                    style={{ marginBottom: 8 }}
+                    fullWidth
+                  />
+                </div>
+              );
+            })}
+          </Grid>
+          <input type="submit" value="Submit" />
+        </Grid>
+      </div>
     </form>
   );
 }
