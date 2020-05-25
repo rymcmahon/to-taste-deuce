@@ -5,6 +5,16 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import SaveIcon from "@material-ui/icons/Save";
+
+// {
+//   palette: {
+//     primary: indigo,
+//     secondary: {
+//       main: '#4caf50',
+//     },
+//   },
+// }
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -120,7 +130,7 @@ function CreateRecipe() {
               id="cookingTime"
               value={recipe.cookingTime}
               onChange={handleRecipeChange}
-              label="Cooking Time"
+              label="Cooking Time (minutes)"
               variant="outlined"
               fullWidth
             />
@@ -132,7 +142,7 @@ function CreateRecipe() {
               id="prepTime"
               value={recipe.prepTime}
               onChange={handleRecipeChange}
-              label="Prep Time"
+              label="Prep Time (minutes)"
               variant="outlined"
               fullWidth
             />
@@ -156,7 +166,6 @@ function CreateRecipe() {
               onClick={addIngredient}
               startIcon={<AddCircleOutlineIcon />}
               style={{ marginBottom: 8 }}
-              fullWidth
             >
               Add Ingredient
             </Button>
@@ -189,7 +198,6 @@ function CreateRecipe() {
               onClick={addInstruction}
               startIcon={<AddCircleOutlineIcon />}
               style={{ marginBottom: 8 }}
-              fullWidth
             >
               Add Instruction
             </Button>
@@ -215,7 +223,16 @@ function CreateRecipe() {
               );
             })}
           </Grid>
-          <input type="submit" value="Submit" />
+          <Grid item xs={4}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              startIcon={<SaveIcon />}
+            >
+              Create Recipe
+            </Button>
+          </Grid>
         </Grid>
       </div>
     </form>
