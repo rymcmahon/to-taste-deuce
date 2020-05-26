@@ -60,9 +60,10 @@ function CreateRecipe() {
   }
 
   function handleInstructionChange(e) {
+    const name = e.target.name;
+    const body = name.substr(0, 4);
     const updatedInstructions = [...instructions];
-    updatedInstructions[e.target.dataset.index][e.target.className] =
-      e.target.value;
+    updatedInstructions[e.target.dataset.index][body] = e.target.value;
     setInstructions(updatedInstructions);
   }
 
@@ -232,9 +233,12 @@ function CreateRecipe() {
                   <TextField
                     type="text"
                     name={instructionId}
-                    inputProps={{ "data-index": `${index}` }}
+                    inputProps={{
+                      "data-index": `${index}`,
+                      className: "body",
+                    }}
                     id={instructionId}
-                    className="body"
+                    // classes="body"
                     value={instructions[index].body}
                     onChange={handleInstructionChange}
                     variant="outlined"
