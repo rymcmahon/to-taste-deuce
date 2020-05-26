@@ -160,7 +160,7 @@ function CreateRecipe() {
             />
           </Grid>
           <Grid item xs={6}>
-            <Button
+            {/* <Button
               variant="contained"
               color="secondary"
               onClick={addIngredient}
@@ -182,10 +182,34 @@ function CreateRecipe() {
                     value={ingredients[index].name}
                     onChange={handleIngredientChange}
                     variant="outlined"
-                    htmlFor={ingredientId}
+                    // htmlFor={ingredientId}
                     label={`Ingredient #${index + 1}`}
                     style={{ marginBottom: 8 }}
                     fullWidth
+                  />
+                </div>
+              );
+            })} */}
+            <input
+              type="button"
+              value="Add Ingredient"
+              onClick={addIngredient}
+            />
+            {ingredients.map((value, index) => {
+              const ingredientId = `name-${index}`;
+              return (
+                <div key={`ingredient-${index}`}>
+                  <label htmlFor={ingredientId}>{`Ingredient #${
+                    index + 1
+                  }`}</label>
+                  <input
+                    type="text"
+                    name={ingredientId}
+                    data-index={index}
+                    id={ingredientId}
+                    className="name"
+                    value={ingredients[index].name}
+                    onChange={handleIngredientChange}
                   />
                 </div>
               );
@@ -208,7 +232,7 @@ function CreateRecipe() {
                   <TextField
                     type="text"
                     name={instructionId}
-                    data-index={index}
+                    inputProps={{ "data-index": `${index}` }}
                     id={instructionId}
                     className="body"
                     value={instructions[index].body}
