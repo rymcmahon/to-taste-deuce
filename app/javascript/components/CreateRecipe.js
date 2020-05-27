@@ -46,9 +46,10 @@ function CreateRecipe() {
   }
 
   function handleIngredientChange(e) {
+    const inputName = e.target.name;
+    const name = inputName.substr(0, 4);
     const updatedIngredients = [...ingredients];
-    updatedIngredients[e.target.dataset.index][e.target.className] =
-      e.target.value;
+    updatedIngredients[e.target.dataset.index][name] = e.target.value;
     setIngredients(updatedIngredients);
   }
 
@@ -60,8 +61,8 @@ function CreateRecipe() {
   }
 
   function handleInstructionChange(e) {
-    const name = e.target.name;
-    const body = name.substr(0, 4);
+    const inputName = e.target.name;
+    const body = inputName.substr(0, 4);
     const updatedInstructions = [...instructions];
     updatedInstructions[e.target.dataset.index][body] = e.target.value;
     setInstructions(updatedInstructions);
@@ -161,12 +162,13 @@ function CreateRecipe() {
             />
           </Grid>
           <Grid item xs={6}>
-            {/* <Button
+            <Button
               variant="contained"
               color="secondary"
+              size="small"
               onClick={addIngredient}
               startIcon={<AddCircleOutlineIcon />}
-              style={{ marginBottom: 8 }}
+              style={{ marginBottom: 10 }}
             >
               Add Ingredient
             </Button>
@@ -177,40 +179,14 @@ function CreateRecipe() {
                   <TextField
                     type="text"
                     name={ingredientId}
-                    data-index={index}
+                    inputProps={{ "data-index": `${index}` }}
                     id={ingredientId}
-                    className="name"
                     value={ingredients[index].name}
                     onChange={handleIngredientChange}
                     variant="outlined"
-                    // htmlFor={ingredientId}
                     label={`Ingredient #${index + 1}`}
                     style={{ marginBottom: 8 }}
                     fullWidth
-                  />
-                </div>
-              );
-            })} */}
-            <input
-              type="button"
-              value="Add Ingredient"
-              onClick={addIngredient}
-            />
-            {ingredients.map((value, index) => {
-              const ingredientId = `name-${index}`;
-              return (
-                <div key={`ingredient-${index}`}>
-                  <label htmlFor={ingredientId}>{`Ingredient #${
-                    index + 1
-                  }`}</label>
-                  <input
-                    type="text"
-                    name={ingredientId}
-                    data-index={index}
-                    id={ingredientId}
-                    className="name"
-                    value={ingredients[index].name}
-                    onChange={handleIngredientChange}
                   />
                 </div>
               );
@@ -220,9 +196,10 @@ function CreateRecipe() {
             <Button
               variant="contained"
               color="secondary"
+              size="small"
               onClick={addInstruction}
               startIcon={<AddCircleOutlineIcon />}
-              style={{ marginBottom: 8 }}
+              style={{ marginBottom: 10 }}
             >
               Add Instruction
             </Button>
@@ -235,10 +212,8 @@ function CreateRecipe() {
                     name={instructionId}
                     inputProps={{
                       "data-index": `${index}`,
-                      className: "body",
                     }}
                     id={instructionId}
-                    // classes="body"
                     value={instructions[index].body}
                     onChange={handleInstructionChange}
                     variant="outlined"
