@@ -6,6 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import SaveIcon from "@material-ui/icons/Save";
+import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
+import IconButton from "@material-ui/core/IconButton";
 
 // {
 //   palette: {
@@ -59,6 +61,8 @@ function CreateRecipe() {
   function addIngredient() {
     setIngredients([...ingredients, { ...emptyIngredient }]);
   }
+
+  function handleRemoveInput() {}
 
   function handleInstructionChange(e) {
     const inputName = e.target.name;
@@ -185,9 +189,18 @@ function CreateRecipe() {
                     onChange={handleIngredientChange}
                     variant="outlined"
                     label={`Ingredient #${index + 1}`}
-                    style={{ marginBottom: 8 }}
-                    fullWidth
+                    style={{ marginBottom: 8, width: "90%" }}
+                    // fullWidth
                   />
+                  <IconButton
+                    color="secondary"
+                    aria-label="remove ingredient input"
+                    color="secondary"
+                    style={{ marginLeft: 5 }}
+                    onClick={handleRemoveInput}
+                  >
+                    <RemoveCircleOutlineIcon />
+                  </IconButton>
                 </div>
               );
             })}
