@@ -62,7 +62,9 @@ function CreateRecipe() {
     setIngredients([...ingredients, { ...emptyIngredient }]);
   }
 
-  function handleRemoveInput() {}
+  function handleRemoveInput(input) {
+    console.log("input: ", input);
+  }
 
   function handleInstructionChange(e) {
     const inputName = e.target.name;
@@ -195,9 +197,12 @@ function CreateRecipe() {
                   <IconButton
                     color="secondary"
                     aria-label="remove ingredient input"
-                    color="secondary"
-                    style={{ marginLeft: 5 }}
-                    onClick={handleRemoveInput}
+                    name={`input-${index}`}
+                    // style={{ marginLeft: 2 }}
+                    id="test"
+                    onClick={() => {
+                      handleRemoveInput(`input-${index}`);
+                    }}
                   >
                     <RemoveCircleOutlineIcon />
                   </IconButton>
