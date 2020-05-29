@@ -62,8 +62,11 @@ function CreateRecipe() {
     setIngredients([...ingredients, { ...emptyIngredient }]);
   }
 
-  function handleRemoveInput(input) {
-    console.log("input: ", input);
+  function handleRemoveInput(ingredientInput) {
+    const ingredientInputIndex = ingredientInput.index;
+    const ingredientsCopy = [...ingredients];
+    ingredientsCopy.splice(ingredientInputIndex, 1);
+    setIngredients(ingredientsCopy);
   }
 
   function handleInstructionChange(e) {
@@ -201,7 +204,7 @@ function CreateRecipe() {
                     // style={{ marginLeft: 2 }}
                     id="test"
                     onClick={() => {
-                      handleRemoveInput(`input-${index}`);
+                      handleRemoveInput({ index });
                     }}
                   >
                     <RemoveCircleOutlineIcon />
