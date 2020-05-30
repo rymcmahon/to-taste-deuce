@@ -63,12 +63,15 @@ function CreateRecipe() {
   }
 
   function handleRemoveInput(inputType, inputIndex) {
-    if (inputType === "INGREDIENT") {
-      const ingredientsCopy = [...ingredients];
-      ingredientsCopy.splice(inputIndex, 1);
-      setIngredients(ingredientsCopy);
-    } else {
-      // do instruction stuff
+    switch (inputType) {
+      case "INGREDIENT":
+        const ingredientsCopy = [...ingredients];
+        ingredientsCopy.splice(inputIndex, 1);
+        setIngredients(ingredientsCopy);
+      case "INSTRUCTION":
+        const instructionsCopy = [...instructions];
+        instructionsCopy.splice(inputIndex, 1);
+        setInstructions(instructionsCopy);
     }
   }
 
@@ -199,14 +202,10 @@ function CreateRecipe() {
                     variant="outlined"
                     label={`Ingredient #${index + 1}`}
                     style={{ marginBottom: 8, width: "90%" }}
-                    // fullWidth
                   />
                   <IconButton
                     color="secondary"
                     aria-label="remove ingredient input"
-                    // name={`input-${index}`}
-                    // style={{ marginLeft: 2 }}
-                    // id="test"
                     onClick={() => {
                       handleRemoveInput(INPUT, index);
                     }}
@@ -230,6 +229,7 @@ function CreateRecipe() {
             </Button>
             {instructions.map((value, index) => {
               const instructionId = `body-${index}`;
+              const INPUT = "INSTRUCTION";
               return (
                 <div key={`instruction-${index}`}>
                   <TextField
@@ -238,15 +238,25 @@ function CreateRecipe() {
                     inputProps={{
                       "data-index": `${index}`,
                     }}
+                    multiline
+                    rows={2}
                     id={instructionId}
                     value={instructions[index].body}
                     onChange={handleInstructionChange}
                     variant="outlined"
                     label={`Instruction #${index + 1}`}
                     htmlFor={instructionId}
-                    style={{ marginBottom: 8 }}
-                    fullWidth
+                    style={{ marginBottom: 8, width: "90%" }}
                   />
+                  <IconButton
+                    color="secondary"
+                    aria-label="remove instruction input"
+                    onClick={() => {
+                      handleRemoveInput(INPUT, index);
+                    }}
+                  >
+                    <RemoveCircleOutlineIcon />
+                  </IconButton>
                 </div>
               );
             })}
