@@ -62,11 +62,14 @@ function CreateRecipe() {
     setIngredients([...ingredients, { ...emptyIngredient }]);
   }
 
-  function handleRemoveInput(ingredientInput) {
-    const ingredientInputIndex = ingredientInput.index;
-    const ingredientsCopy = [...ingredients];
-    ingredientsCopy.splice(ingredientInputIndex, 1);
-    setIngredients(ingredientsCopy);
+  function handleRemoveInput(inputType, inputIndex) {
+    if (inputType === "INGREDIENT") {
+      const ingredientsCopy = [...ingredients];
+      ingredientsCopy.splice(inputIndex, 1);
+      setIngredients(ingredientsCopy);
+    } else {
+      // do instruction stuff
+    }
   }
 
   function handleInstructionChange(e) {
@@ -183,6 +186,7 @@ function CreateRecipe() {
             </Button>
             {ingredients.map((value, index) => {
               const ingredientId = `name-${index}`;
+              const INPUT = "INGREDIENT";
               return (
                 <div key={`ingredient-${index}`}>
                   <TextField
@@ -200,11 +204,11 @@ function CreateRecipe() {
                   <IconButton
                     color="secondary"
                     aria-label="remove ingredient input"
-                    name={`input-${index}`}
+                    // name={`input-${index}`}
                     // style={{ marginLeft: 2 }}
-                    id="test"
+                    // id="test"
                     onClick={() => {
-                      handleRemoveInput({ index });
+                      handleRemoveInput(INPUT, index);
                     }}
                   >
                     <RemoveCircleOutlineIcon />
