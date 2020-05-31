@@ -6,6 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import SaveIcon from "@material-ui/icons/Save";
+import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
+import IconButton from "@material-ui/core/IconButton";
 
 // {
 //   palette: {
@@ -58,6 +60,19 @@ function CreateRecipe() {
 
   function addIngredient() {
     setIngredients([...ingredients, { ...emptyIngredient }]);
+  }
+
+  function handleRemoveInput(inputType, inputIndex) {
+    switch (inputType) {
+      case "INGREDIENT":
+        const ingredientsCopy = [...ingredients];
+        ingredientsCopy.splice(inputIndex, 1);
+        setIngredients(ingredientsCopy);
+      case "INSTRUCTION":
+        const instructionsCopy = [...instructions];
+        instructionsCopy.splice(inputIndex, 1);
+        setInstructions(instructionsCopy);
+    }
   }
 
   function handleInstructionChange(e) {
@@ -174,6 +189,7 @@ function CreateRecipe() {
             </Button>
             {ingredients.map((value, index) => {
               const ingredientId = `name-${index}`;
+              const INPUT = "INGREDIENT";
               return (
                 <div key={`ingredient-${index}`}>
                   <TextField
@@ -185,9 +201,17 @@ function CreateRecipe() {
                     onChange={handleIngredientChange}
                     variant="outlined"
                     label={`Ingredient #${index + 1}`}
-                    style={{ marginBottom: 8 }}
-                    fullWidth
+                    style={{ marginBottom: 8, width: "90%" }}
                   />
+                  <IconButton
+                    color="secondary"
+                    aria-label="remove ingredient input"
+                    onClick={() => {
+                      handleRemoveInput(INPUT, index);
+                    }}
+                  >
+                    <RemoveCircleOutlineIcon />
+                  </IconButton>
                 </div>
               );
             })}
@@ -205,6 +229,7 @@ function CreateRecipe() {
             </Button>
             {instructions.map((value, index) => {
               const instructionId = `body-${index}`;
+              const INPUT = "INSTRUCTION";
               return (
                 <div key={`instruction-${index}`}>
                   <TextField
@@ -213,15 +238,25 @@ function CreateRecipe() {
                     inputProps={{
                       "data-index": `${index}`,
                     }}
+                    multiline
+                    rows={2}
                     id={instructionId}
                     value={instructions[index].body}
                     onChange={handleInstructionChange}
                     variant="outlined"
                     label={`Instruction #${index + 1}`}
                     htmlFor={instructionId}
-                    style={{ marginBottom: 8 }}
-                    fullWidth
+                    style={{ marginBottom: 8, width: "90%" }}
                   />
+                  <IconButton
+                    color="secondary"
+                    aria-label="remove instruction input"
+                    onClick={() => {
+                      handleRemoveInput(INPUT, index);
+                    }}
+                  >
+                    <RemoveCircleOutlineIcon />
+                  </IconButton>
                 </div>
               );
             })}
