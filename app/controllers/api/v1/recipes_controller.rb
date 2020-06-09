@@ -19,6 +19,8 @@ class Api::V1::RecipesController < ApplicationController
       yield: params["recipe"]["yield"]
     )
 
+    @recipe.image.attach(params[:signed_blob_id])
+
     @ingredients = params["ingredients"]
     @ingredients.map{ |ingredient| @recipe.ingredients.create(name: ingredient["name"]) }
 

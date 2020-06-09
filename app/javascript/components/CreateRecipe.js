@@ -8,6 +8,7 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import SaveIcon from "@material-ui/icons/Save";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import IconButton from "@material-ui/core/IconButton";
+import Input from "@material-ui/core/Input";
 
 // {
 //   palette: {
@@ -38,12 +39,13 @@ function CreateRecipe() {
     cookingTime: "",
     prepTime: "",
     yield: "",
+    image: "",
   });
 
   function handleRecipeChange(e) {
     setRecipe({
       ...recipe,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.replace("C:\\fakepath\\", ""),
     });
   }
 
@@ -136,6 +138,16 @@ function CreateRecipe() {
               style={{ marginBottom: 8 }}
               multiline
               rows={4}
+              variant="outlined"
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              type="file"
+              id="image"
+              name="image"
+              onChange={handleRecipeChange}
               variant="outlined"
               fullWidth
             />
