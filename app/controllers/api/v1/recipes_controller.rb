@@ -16,7 +16,8 @@ class Api::V1::RecipesController < ApplicationController
       description: params["recipe"]["description"],
       cooking_time: params["recipe"]["cookingTime"],
       prep_time: params["recipe"]["prepTime"],
-      yield: params["recipe"]["yield"]
+      yield: params["recipe"]["yield"],
+      image: params["recipe"]["image"]
     )
 
     @ingredients = params["ingredients"]

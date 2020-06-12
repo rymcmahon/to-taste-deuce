@@ -8,6 +8,7 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import SaveIcon from "@material-ui/icons/Save";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import IconButton from "@material-ui/core/IconButton";
+import PropTypes from "prop-types";
 
 // {
 //   palette: {
@@ -17,6 +18,23 @@ import IconButton from "@material-ui/core/IconButton";
 //     },
 //   },
 // }
+
+window.addEventListener("load", function () {
+  document
+    .querySelector('input[type="file"]')
+    .addEventListener("change", function () {
+      if (this.files && this.files[0]) {
+        var img = document.querySelector("#image"); // $('img')[0]
+        img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+        img.onload = imageIsLoaded;
+      }
+    });
+});
+
+function imageIsLoaded() {
+  alert(this.src); // blob url
+  // update width and height ...
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,12 +56,13 @@ function CreateRecipe() {
     cookingTime: "",
     prepTime: "",
     yield: "",
+    image: "",
   });
 
   function handleRecipeChange(e) {
     setRecipe({
       ...recipe,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.replace("C:\\fakepath\\", ""),
     });
   }
 
@@ -136,6 +155,16 @@ function CreateRecipe() {
               style={{ marginBottom: 8 }}
               multiline
               rows={4}
+              variant="outlined"
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              type="file"
+              id="image"
+              name="image"
+              onChange={handleRecipeChange}
               variant="outlined"
               fullWidth
             />
@@ -277,4 +306,14 @@ function CreateRecipe() {
   );
 }
 
+// CreateRecipe.propTypes = {
+//   name: PropTypes.string,
+//   description: PropTypes.string,
+//   prepTime: PropTypes.number,
+//   cookingTime: PropTypes.number,
+//   yield: PropTypes.number,
+//   image: PropTypes.string,
+//   ingredients: PropTypes.arrayOf({ name: PropTypes.string }),
+//   instructions: PropTypes.arrayOf({ body: PropTypes.string }),
+// };
 export default CreateRecipe;
