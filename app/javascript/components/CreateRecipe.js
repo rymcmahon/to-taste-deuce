@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import Input from "@material-ui/core/Input"
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import SaveIcon from "@material-ui/icons/Save";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
@@ -38,6 +39,7 @@ function CreateRecipe() {
     cookingTime: "",
     prepTime: "",
     yield: "",
+    image: ""
   });
 
   function handleRecipeChange(e) {
@@ -174,6 +176,19 @@ function CreateRecipe() {
               label="Yield"
               variant="outlined"
               fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Input
+            type="file"
+            name="image"
+            id="image"
+            value={recipe.image}
+            onChange={handleRecipeChange}
+            label="Image"
+            variant="outlined"
+            fullWidth
+            inputProps={{'data-direct-upload-url': '/rails/active_storage/direct_uploads'}}
             />
           </Grid>
           <Grid item xs={6}>
